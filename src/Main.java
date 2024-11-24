@@ -1,30 +1,48 @@
 public class Main {
-
     public static void main(String[] args) {
-        Cliente lucas = new Cliente();
-        lucas.setNome("Lucas");
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setNome("Lucas");
+            cliente.setCpf("12345678901");
 
-        Conta cc = new ContaCorrente(lucas);
-        Conta poupanca = new ContaPoupanca(lucas);
+            ContaCorrente cc = new ContaCorrente(cliente);
+            ContaPoupanca cp = new ContaPoupanca(cliente);
+            ContaRemunerada cr = new ContaRemunerada(cliente);
 
-        cc.depositar(100);
-        cc.transferir(100, poupanca);
+            cc.depositar(1000);
+            cc.transferir(500, cp);
+            cr.depositar(2000);
+            cr.aplicarRendimento();
 
-        cc.imprimirExtrato();
-        poupanca.imprimirExtrato();
+            System.out.println("=== Extratos ===");
+            cc.imprimirExtrato();
+            cp.imprimirExtrato();
+            cr.imprimirExtrato();
 
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        }
+        try {
+            Cliente cliente = new Cliente();
+            cliente.setNome("Letícia");
+            cliente.setCpf("98778954137");
 
-        Cliente leticia = new Cliente();
-        leticia.setNome("Leticia");
+            ContaCorrente cc = new ContaCorrente(cliente);
+            ContaPoupanca cp = new ContaPoupanca(cliente);
+            ContaRemunerada cr = new ContaRemunerada(cliente);
 
-        Conta cc2 = new ContaCorrente(leticia);
-        Conta poupanca2 = new ContaPoupanca(leticia);
+            cc.depositar(3000);
+            cc.transferir(2500, cp);
+            cr.depositar(1000);
+            cr.aplicarRendimento();
 
-        cc2.depositar(400);
-        cc2.transferir(350, poupanca2);
+            System.out.println("=== Extratos ===");
+            cc.imprimirExtrato();
+            cp.imprimirExtrato();
+            cr.imprimirExtrato();
 
-        cc2.imprimirExtrato();
-        poupanca2.imprimirExtrato();
-
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro na operação: " + e.getMessage());
+        }
     }
 }
